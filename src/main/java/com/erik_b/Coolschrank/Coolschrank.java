@@ -5,9 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Coolschrank {
     private String id;
+    private String[] inventory;
 
     public Coolschrank() {
 
+    }
+
+    public String[] getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(String[] inventory) {
+        this.inventory = inventory;
     }
 
     public String getId() {

@@ -25,8 +25,8 @@ public class CoolschrankApplication {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			Coolschrank coolschrank = CoolschrankService.createCoolschrank(restTemplate);
-			log.info(coolschrank.getId());
+			/*Coolschrank coolschrank = CoolschrankService.createCoolschrank(restTemplate);
+			log.info(coolschrank.getId());*/
 		};
 	}
 
