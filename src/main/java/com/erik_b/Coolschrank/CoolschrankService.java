@@ -24,18 +24,20 @@ public class CoolschrankService {
                 Coolschrank.class);
     }
 
-    public Coolschrank createCoolschrankItem(Inventory inventory, String id) { // ToDO: Ausgabe, Speicherung in Array Inventory evtl. Fehlerhaft (Ausgabe Inventory = null)
+    public Inventory createCoolschrankItem(String id, Inventory inventory) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject( "https://innovations.rola.com/build/rola/coolschrank/ongoing/application/fridge/"+id+"/item", inventory, Coolschrank.class);
+        return restTemplate.postForObject( "https://innovations.rola.com/build/rola/coolschrank/ongoing/application/fridge/"+id+"/item", inventory, Inventory.class);
     }
 
-    public Coolschrank getCoolschrankItem(String id, String itemId) { // ToDo: Inventory Class evtl fehlerhaft mit Responsebody probieren
+    public Inventory getCoolschrankItem(String id, String itemId) { // ToDo: Path evtl fehlerhaft
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("https://innovations.rola.com/build/rola/coolschrank/ongoing/application/fridge/"+id+"/item/"+itemId,
                 Inventory.class);
     }
 
-   /* public Coolschrank changeCoolschrankItem() {
-        //ToDo
-    }*/
+    public Inventory changeCoolschrankItem(String id, String itemId, Inventory inventory) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForObject( "https://innovations.rola.com/build/rola/coolschrank/ongoing/application/fridge/"+id+"/item/"+itemId, inventory, Inventory.class);
+    }
+
 }

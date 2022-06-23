@@ -33,12 +33,17 @@ public class CoolschrankController {
 
     @PostMapping(value = "/fridge/{id}/item")
     public Object createItem(@PathVariable String id, @RequestBody Inventory inventory) {
-        return coolschrankService.createCoolschrankItem(inventory, id);
+        System.out.println(inventory);
+        return coolschrankService.createCoolschrankItem(id, inventory); // anscheinend ist die Api fehlerhaft. Wenn ein weiteres Item hinzugefügt werden soll, "409 Conflict, no body"
     }
 
     @GetMapping(value = "/fridge/{id}/item/{itemId}")
     public Object getItem(@PathVariable String id, @PathVariable String itemId) {
         return coolschrankService.getCoolschrankItem(id, itemId);
     }
-    //ToDo
+
+    @PostMapping (value = "/fridge/{id}/item/{itemId}")
+    public Object changeItem(@PathVariable String id, @PathVariable String itemId, @RequestBody Inventory inventory) {
+        return coolschrankService.changeCoolschrankItem(id, itemId, inventory);
+    }
 }
