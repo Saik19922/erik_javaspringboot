@@ -38,6 +38,10 @@ class Inventory {
     private Number actual; // der Wert der aktuell im Kühlschrank vorhanden ist
     private Number target; // >=0 Stellt dar wie viel im Kühlschrank sein sollen
 
+    public Inventory() {
+        this.id = counter++;
+    }
+
     public int getId() {
         return id;
     }
