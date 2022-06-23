@@ -30,4 +30,15 @@ public class CoolschrankController {
     public Object getFridge(@PathVariable String id) {
         return coolschrankService.getCoolschrank(id);
     }
+
+    @PostMapping(value = "/fridge/{id}/item")
+    public Object createItem(@PathVariable String id, @RequestBody Inventory inventory) {
+        return coolschrankService.createCoolschrankItem(inventory, id);
+    }
+
+    @GetMapping(value = "/fridge/{id}/item/{itemId}")
+    public Object getItem(@PathVariable String id, @PathVariable String itemId) {
+        return coolschrankService.getCoolschrankItem(id, itemId);
+    }
+    //ToDo
 }
