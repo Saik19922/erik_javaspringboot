@@ -33,7 +33,7 @@ public class CoolschrankController {
     }
 
     @PostMapping(value = "/fridge/{id}/item")
-    public Object createItem(@PathVariable String id, @RequestBody Inventory inventory) {
+    public Object createItem(@PathVariable String id, @RequestBody RequestInventory inventory) {
         //System.out.println(inventory);
         return coolschrankService.createCoolschrankItem(id, inventory);
     }
@@ -44,7 +44,7 @@ public class CoolschrankController {
     }
 
     @PostMapping (value = "/fridge/{id}/item/{itemId}")
-    public Object changeItem(@PathVariable String id, @PathVariable String itemId, @RequestBody Inventory inventory) {
+    public Object changeItem(@PathVariable String id, @PathVariable String itemId, @RequestBody RequestInventory inventory) {
         return coolschrankService.changeCoolschrankItem(id, itemId, inventory);
     }
 

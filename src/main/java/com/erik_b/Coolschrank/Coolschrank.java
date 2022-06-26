@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Coolschrank { //evtl als Interface?
     private String id;
-    private Inventory[] inventory; //
+    private ResponseInventory[] inventory; //
 
 
 
@@ -16,11 +16,11 @@ public class Coolschrank { //evtl als Interface?
 
     }
 
-    public Inventory[] getInventory() {
+    public ResponseInventory[] getInventory() {
         return inventory;
     }
 
-    public void setInventory(Inventory[] inventory) {
+    public void setInventory(ResponseInventory[] inventory) {
         this.inventory = inventory;
     }
 
@@ -36,7 +36,7 @@ public class Coolschrank { //evtl als Interface?
         ShoppingList shoppingList = new ShoppingList();
         shoppingList.deleteAll();
 
-        for (Inventory i : inventory) {
+        for (ResponseInventory i : inventory) {
             if (i.getActual().intValue() == 0) {
                 ShoppingListItem product = new ShoppingListItem();
                 product.setName(i.getName());
@@ -52,24 +52,12 @@ public class Coolschrank { //evtl als Interface?
     }
 }
 
-class Inventory {
-    static private int counter = 1;
-
-    private int id;
+class RequestInventory {
     private String name;
     private Number actual; // der Wert der aktuell im Kühlschrank vorhanden ist
     private Number target; // >=0 Stellt dar wie viel im Kühlschrank sein sollen
 
-    public Inventory() {
-        this.id = counter++; //ToDO: Zählt 2 statt 1 hoch
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public RequestInventory() {
     }
 
     public String getName() {
@@ -99,7 +87,7 @@ class Inventory {
     @Override
     public String toString() {
         return "Inventory{" +
-                "id=" + id +
+                //"id=" + id +
                 ", name='" + name + '\'' +
                 ", actual=" + actual +
                 ", target=" + target +
@@ -120,7 +108,6 @@ class ResponseInventory{
     private Number target; // >=0 Stellt dar wie viel im Kühlschrank sein sollen
 
     public ResponseInventory() {
-        //this.id = counter++; //ToDO: Zählt 2 statt 1 hoch
     }
 
     public int getId() {
