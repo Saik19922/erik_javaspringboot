@@ -1,5 +1,6 @@
 package com.erik_b.Coolschrank;
 
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -46,4 +47,13 @@ public class CoolschrankController {
     public Object changeItem(@PathVariable String id, @PathVariable String itemId, @RequestBody Inventory inventory) {
         return coolschrankService.changeCoolschrankItem(id, itemId, inventory);
     }
+
+    @RequestMapping (value = "/fridge/{id}/newshoppinglist")
+    public Object createShoppingList(@PathVariable String id){
+
+        coolschrankService.getCoolschrank(id).createShoppingList();
+        return "Einkaufsliste erstellt";
+    }
+
+
 }

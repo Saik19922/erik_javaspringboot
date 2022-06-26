@@ -2,13 +2,15 @@ package com.erik_b.Coolschrank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeId;
-
-import javax.annotation.processing.Generated;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Coolschrank { //evtl als Interface?
     private String id;
     private Inventory[] inventory; //
+
+    ShoppingList shoppingList = new ShoppingList();
+    ShoppingListItem product = new ShoppingListItem();
 
     public Coolschrank() {
 
@@ -29,17 +31,36 @@ public class Coolschrank { //evtl als Interface?
     public void setId(String id) {
         this.id = id;
     }
+
+    public void createShoppingList() {
+
+        shoppingList.deleteAll();
+
+        for (Inventory i : inventory) {
+            if (i.getActual().intValue() == 0) {
+                product.setName(i.getName());
+                product.setTarget(i.getTarget());
+                shoppingList.addItem(product);
+                shoppingList.output();
+                System.out.println(i);
+
+            }
+            else
+                System.out.println("Fridge filled");
+        }
+    }
 }
 
 class Inventory {
-    static int counter = 1;
-    private int id; // ToDo: Autoincrement
+    static private int counter = 1;
+
+    private int id;
     private String name;
     private Number actual; // der Wert der aktuell im Kühlschrank vorhanden ist
     private Number target; // >=0 Stellt dar wie viel im Kühlschrank sein sollen
 
     public Inventory() {
-        this.id = counter++;
+        this.id = counter++; //ToDO: Zählt 2 statt 1 hoch
     }
 
     public int getId() {
@@ -83,4 +104,9 @@ class Inventory {
                 ", target=" + target +
                 '}';
     }
+    public boolean checkActualValue() {
+        int value = (int) this.actual;
+        return value == 0;
+    }
+
 }
