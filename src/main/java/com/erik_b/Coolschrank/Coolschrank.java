@@ -9,8 +9,8 @@ public class Coolschrank { //evtl als Interface?
     private String id;
     private Inventory[] inventory; //
 
-    ShoppingList shoppingList = new ShoppingList();
-    ShoppingListItem product = new ShoppingListItem();
+
+
 
     public Coolschrank() {
 
@@ -33,21 +33,22 @@ public class Coolschrank { //evtl als Interface?
     }
 
     public void createShoppingList() {
-
+        ShoppingList shoppingList = new ShoppingList();
         shoppingList.deleteAll();
 
         for (Inventory i : inventory) {
             if (i.getActual().intValue() == 0) {
+                ShoppingListItem product = new ShoppingListItem();
                 product.setName(i.getName());
                 product.setTarget(i.getTarget());
                 shoppingList.addItem(product);
-                shoppingList.output();
+                //shoppingList.output();
                 System.out.println(i);
-
             }
             else
                 System.out.println("Fridge filled");
         }
+        shoppingList.output();
     }
 }
 
