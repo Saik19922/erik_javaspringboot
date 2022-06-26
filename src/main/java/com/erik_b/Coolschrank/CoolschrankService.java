@@ -24,9 +24,9 @@ public class CoolschrankService {
                 Coolschrank.class);
     }
 
-    public Inventory createCoolschrankItem(String id, Inventory inventory) {
+    public ResponseInventory createCoolschrankItem(String id, Inventory inventory) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject( "https://innovations.rola.com/build/rola/coolschrank/ongoing/application/fridge/"+id+"/item", inventory, Inventory.class);
+        return restTemplate.postForObject( "https://innovations.rola.com/build/rola/coolschrank/ongoing/application/fridge/"+id+"/item", inventory, ResponseInventory.class);
     }
 
     public Inventory getCoolschrankItem(String id, String itemId) {

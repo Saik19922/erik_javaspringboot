@@ -1,6 +1,6 @@
 package com.erik_b.Coolschrank;
 
-public class ShoppingListItem { // ToDO: Problem beheben, dass Produkte die hinzugefügt werden, sich hochzählen und öfters in die Einkaufsliste geschrieben werden
+public class ShoppingListItem {
     private String name;
     private Number target;
 
