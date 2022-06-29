@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeId;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Coolschrank { //evtl als Interface?
+public class Coolschrank {
     private String id;
     private ResponseInventory[] inventory; //
-
 
 
 
@@ -32,24 +34,6 @@ public class Coolschrank { //evtl als Interface?
         this.id = id;
     }
 
-    public void createShoppingList() {
-        ShoppingList shoppingList = new ShoppingList();
-        shoppingList.deleteAll();
-
-        for (ResponseInventory i : inventory) {
-            if (i.getActual().intValue() == 0) {
-                ShoppingListItem product = new ShoppingListItem();
-                product.setName(i.getName());
-                product.setTarget(i.getTarget());
-                shoppingList.addItem(product);
-                //shoppingList.output();
-                System.out.println(i);
-            }
-            else
-                System.out.println("Fridge filled");
-        }
-        shoppingList.output();
-    }
 }
 
 class RequestInventory {
@@ -93,11 +77,6 @@ class RequestInventory {
                 ", target=" + target +
                 '}';
     }
-    public boolean checkActualValue() {
-        int value = (int) this.actual;
-        return value == 0;
-    }
-
 }
 
 class ResponseInventory{

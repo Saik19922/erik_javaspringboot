@@ -1,6 +1,5 @@
 package com.erik_b.Coolschrank;
 
-import com.fasterxml.jackson.annotation.JsonTypeId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -12,15 +11,14 @@ public class CoolschrankController {
 
 
     @RequestMapping("/hello")
-    public String hello(){
-        return "hello";
+    public String hello(String world){
+        return String.format("Hello "+ world);
     }
 
     @GetMapping(value = "/callclienthello")
     public Object getHelloClient() {
         String uri = "http://localhost:8080/hello";
         RestTemplate restTemplate = new RestTemplate();
-
         return restTemplate.getForObject(uri, Object.class);
     }
     @PostMapping(value = "/fridge")
@@ -34,7 +32,6 @@ public class CoolschrankController {
 
     @PostMapping(value = "/fridge/{id}/item")
     public Object createItem(@PathVariable String id, @RequestBody RequestInventory inventory) {
-        //System.out.println(inventory);
         return coolschrankService.createCoolschrankItem(id, inventory);
     }
 
@@ -48,11 +45,22 @@ public class CoolschrankController {
         return coolschrankService.changeCoolschrankItem(id, itemId, inventory);
     }
 
-    @RequestMapping (value = "/fridge/{id}/newshoppinglist")
+    //Anforderung 1
+    @PostMapping (value = "/fridge/{id}/newshoppinglist")
     public Object createShoppingList(@PathVariable String id){
+        return coolschrankService.createShoppinglist(id);
+    }
 
-        coolschrankService.getCoolschrank(id).createShoppingList();
-        return "Einkaufsliste erstellt";
+    // Anforderung 2
+    @GetMapping (value = "/fridge/{id}/shoppinglist")
+    public Object getShoppingList(@PathVariable String id){
+        return coolschrankService.getShoppinglistvalue(id);
+    }
+
+    //Anforderung 3
+    @PostMapping(value = "/fridge/{id}/shopping/{itemId}")
+    public Object shoppingProduct(@PathVariable String id, @PathVariable String itemId) {
+        return coolschrankService.changeShoppinglistProduct(id, itemId);
     }
 
 
